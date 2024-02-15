@@ -1,0 +1,224 @@
+# Based on clang-format 13
+---
+BasedOnStyle: Google
+Language: Cpp
+
+AccessModifierOffset: -2
+
+AlignAfterOpenBracket: Align
+AlignArrayOfStructures: None
+AlignConsecutiveAssignments: None
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: Left
+AlignOperands: Align
+AlignTrailingComments: true
+
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: false
+
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: Yes
+
+BinPackArguments: false
+BinPackParameters: false
+
+BitFieldColonSpacing: Both
+
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+BreakAfterJavaFieldAnnotations: true
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Custom
+BreakBeforeConceptDeclarations: true
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+BreakStringLiterals: false
+
+ColumnLimit: 100
+
+CompactNamespaces: false
+ConstructorInitializerIndentWidth: 2
+ConstructorInitializerAllOnOneLineOrOnePerLine: false  # Remove in clang-format 14
+ContinuationIndentWidth: 2
+Cpp11BracedListStyle: true
+DeriveLineEnding: false
+DerivePointerAlignment: false
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: Always
+FixNamespaceComments: true
+
+IncludeBlocks: Regroup
+IncludeIsMainSourceRegex: '(_impl\.h|\.hpp)$'
+
+# 0. Corresponding header file.
+# 100. Everything that is in `src`.
+# 101. Generated files.
+# 102. 3rdparty libs.
+# 103. C++ standard libs.
+# 104. C libs.
+# 1000. Everything else.
+IncludeCategories:
+  # Generated files.
+  - Regex:           '^".*/generated/.*\.h"$'
+    Priority:        101
+    CaseSensitive:   false
+
+  # Generated files (proto).
+  - Regex:           '^".*/.*pb\.h"$'
+    Priority:        101
+    CaseSensitive:   false
+
+  # Everything that is in `src`.
+  - Regex:           '^".*"$'
+    Priority:        100
+    CaseSensitive:   false
+
+  # 3rdparty libs.
+  - Regex:           "^\
+<(\
+boost\
+|cpprest\
+|cryptopp\
+|fmt\
+|gmock\
+|google\
+|grpc\
+|grpcpp\
+|gssapi\
+|gtest\
+|kadm5\
+|krb5\
+|libssh\
+|mailio\
+|nonstd\
+|openldap\
+|sc_grpc\
+|soap\
+|spdlog\
+)/.*>$"
+    Priority:        102
+    CaseSensitive:   false
+
+  # 3rdparty libs (files without extensions).
+  - Regex:           '^<(pqxx)/.*\>$'
+    Priority:        102
+    CaseSensitive:   false
+
+  # 3rdparty libs (special headers):
+  # krb5:
+  #       <k5-int.h>
+  #       <k5-thread.h>
+  #       <profile.h>
+  # sc-key-lib:
+  #       <SCKeyLib.h>
+  #       <SystemFields.h>
+  - Regex:           '<(k5-int|k5-thread|profile|SCKeyLib|SystemFields).h>'
+    Priority:        102
+    CaseSensitive:   false
+
+  # C libs.
+  - Regex:           '^<.*\.h>$'
+    Priority:        104
+    CaseSensitive:   false
+
+  # C++ standard libs.
+  - Regex:           '^<.*>$'
+    Priority:        103
+    CaseSensitive:   false
+
+  # Everything else.
+  - Regex:           '.*'
+    Priority:        1000
+    CaseSensitive:   false
+
+IncludeIsMainRegex: '(_test)?'
+
+IndentAccessModifiers: false
+IndentCaseBlocks: false
+IndentCaseLabels: true
+IndentExternBlock: Indent
+IndentGotoLabels: false
+IndentPPDirectives: None
+#IndentRequiresClause: false                    # Uncomment in clang-format 15
+IndentWidth: 2
+IndentWrappedFunctionNames: false
+
+KeepEmptyLinesAtTheStartOfBlocks: false
+LambdaBodyIndentation: Signature
+
+MacroBlockBegin: "^\
+GRPC_SERVER_START_SERVICE_IMPL$"
+
+MacroBlockEnd: "^\
+GRPC_SERVER_END_SERVICE_IMPL$"
+
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: All
+#PackConstructorInitializers: CurrentLine       # Uncomment in clang-format 14
+
+PointerAlignment: Left
+ReferenceAlignment: Pointer
+
+ReflowComments: false
+#RequiresClausePosition: OwnLine                # Uncomment in clang-format 15
+#SeparateDefinitionBlocks: Always               # Uncomment in clang-format 14
+ShortNamespaceLines: 0
+
+SortIncludes: CaseSensitive
+SortUsingDeclarations: false
+
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: false
+SpaceAroundPointerQualifiers: Default
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeParens: Never
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 2
+SpacesInAngles: Never
+SpacesInCStyleCastParentheses: false
+SpacesInConditionalStatement: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+Standard: Latest
+
+TabWidth: 2
+UseTab: Never
+...

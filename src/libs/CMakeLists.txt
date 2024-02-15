@@ -1,0 +1,3 @@
+add_subdirectory(core)
+add_subdirectory(reserves)
+add_subdirectory(triangulation)
